@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Telas;
 
 /**
  *
- * @author karin
+ * @author karina
  */
 public class telaCaixa extends javax.swing.JFrame {
 
@@ -112,7 +109,7 @@ public class telaCaixa extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("0");
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setBackground(new java.awt.Color(51, 51, 51));
         jButton1.setFont(new java.awt.Font("Algerian", 0, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("ADICIONAR COMPRA");
@@ -251,14 +248,17 @@ public class telaCaixa extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("PAGAMENTO:");
 
+        jRadioButton1.setBackground(new java.awt.Color(0, 0, 0));
         jRadioButton1.setFont(new java.awt.Font("Algerian", 0, 18)); // NOI18N
         jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton1.setText("DÉBITO");
 
+        jRadioButton2.setBackground(new java.awt.Color(0, 0, 0));
         jRadioButton2.setFont(new java.awt.Font("Algerian", 0, 18)); // NOI18N
         jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton2.setText("CRÉDITO");
 
+        jRadioButton3.setBackground(new java.awt.Color(0, 0, 0));
         jRadioButton3.setFont(new java.awt.Font("Algerian", 0, 18)); // NOI18N
         jRadioButton3.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton3.setText("DINHEIRO");

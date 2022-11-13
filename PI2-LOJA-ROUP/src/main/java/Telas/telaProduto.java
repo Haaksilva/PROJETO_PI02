@@ -58,15 +58,14 @@ public class telaProduto extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-        jPanel1.setForeground(null);
 
         jLabel1.setFont(new java.awt.Font("Algerian", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("PESQUISA E CADASTRO DE PRODUTOS");
-        jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(255, 0, 0), null, null));
+        jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(0, null, new java.awt.Color(255, 0, 0), null, null));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)), "BUSCA", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Algerian", 0, 24), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)), "BUSCA", 3, 0, new java.awt.Font("Algerian", 0, 24), new java.awt.Color(255, 0, 0))); // NOI18N
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Algerian", 0, 24)); // NOI18N
@@ -111,37 +110,31 @@ public class telaProduto extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
 
-        lblCodigo.setFont(new java.awt.Font("Algerian", 0, 24)); // NOI18N
-        lblCodigo.setForeground(null);
+        lblCodigo.setBackground(new java.awt.Color(0, 0, 0));
+        lblCodigo.setFont(new java.awt.Font("Bahnschrift", 0, 24)); // NOI18N
         lblCodigo.setText("CÓDIGO:");
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Algerian", 0, 24)); // NOI18N
-        jLabel3.setForeground(null);
         jLabel3.setText("PRODUTO");
 
         jLabel4.setFont(new java.awt.Font("Algerian", 0, 24)); // NOI18N
-        jLabel4.setForeground(null);
         jLabel4.setText("TAMANHO:");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione:", "P", "PP\t", "M\t", "G\t", "GG", "EXG", "EGG", "32", "34", "44", "46", "48", "50", "52", "\t", " ", " ", " " }));
 
         jLabel5.setFont(new java.awt.Font("Algerian", 0, 24)); // NOI18N
-        jLabel5.setForeground(null);
         jLabel5.setText("QTD.:");
 
         jLabel6.setFont(new java.awt.Font("Algerian", 0, 24)); // NOI18N
-        jLabel6.setForeground(null);
         jLabel6.setText("Cor :");
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione:", "Amarelo", "Azul", "Verde", "Preto", "Branco", "Rosa", "Vermelho", "Jeans", " ", " " }));
 
         lblPreco.setFont(new java.awt.Font("Algerian", 0, 24)); // NOI18N
-        lblPreco.setForeground(null);
         lblPreco.setText("*PREÇO: (R$)");
 
         jLabel8.setFont(new java.awt.Font("Algerian", 0, 24)); // NOI18N
-        jLabel8.setForeground(null);
         jLabel8.setText("TIPO:");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione:", "Calça", "Camisa", "Camiseta", "Moletom", "Blusa", "Moda Intima", " ", " " }));
@@ -233,11 +226,12 @@ public class telaProduto extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8)))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
                 .addGap(22, 22, 22))
