@@ -219,7 +219,7 @@ public class telaProduto extends javax.swing.JFrame {
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
 
         lblCodigo.setBackground(new java.awt.Color(255, 255, 255));
-        lblCodigo.setFont(new java.awt.Font("Bahnschrift", 0, 24)); // NOI18N
+        lblCodigo.setFont(new java.awt.Font("Algerian", 0, 24)); // NOI18N
         lblCodigo.setForeground(new java.awt.Color(255, 255, 255));
         lblCodigo.setText("CÓDIGO:");
 
