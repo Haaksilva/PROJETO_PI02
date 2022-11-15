@@ -152,7 +152,7 @@ public class telaUsuario extends javax.swing.JFrame {
 
         lblCodigo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblCodigo.setForeground(new java.awt.Color(255, 255, 255));
-        lblCodigo.setText("Cod:");
+        lblCodigo.setText("Cód:");
 
         txtCodigo.setEditable(false);
         txtCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
@@ -163,11 +163,11 @@ public class telaUsuario extends javax.swing.JFrame {
             }
         });
         txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCodigoKeyTyped(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCodigoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
             }
         });
 
@@ -425,7 +425,7 @@ public class telaUsuario extends javax.swing.JFrame {
                     .addComponent(btnRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimparCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelPrincipalLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAtuallizar, btnLimparCampos, btnRegistrar, btnRemover});

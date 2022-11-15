@@ -155,7 +155,7 @@
                       <Component id="btnLimparCampos" linkSize="5" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                       <Component id="btnVoltar" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="46" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -335,7 +335,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Cod:"/>
+                <Property name="text" type="java.lang.String" value="C&#xf3;d:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtCodigo">
@@ -350,8 +350,8 @@
               </Properties>
               <Events>
                 <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="txtCodigoPropertyChange"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCodigoKeyTyped"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCodigoKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCodigoKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblTipo">
