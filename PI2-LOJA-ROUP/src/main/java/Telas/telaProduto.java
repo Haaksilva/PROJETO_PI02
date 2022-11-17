@@ -4,11 +4,14 @@
  */
 package Telas;
 
+import java.sql.*;
+import java.awt.event.KeyEvent;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,7 +25,7 @@ public class telaProduto extends javax.swing.JFrame {
     public telaProduto() {
         initComponents();
     }
-    
+
     public JTable getTbltblProduto() {
         return tblTelaProduto;
     }
@@ -38,22 +41,15 @@ public class telaProduto extends javax.swing.JFrame {
     public void setTxtBusca(JTextField txtBusca) {
         this.txtBusca = txtBusca;
     }
-    
-    
-    
-    
-    
-    
-    
 
     public JTextField getTxtCodigoProduto() {
         return txtCodigoProduto;
     }
-    
+
     public void setTxtCodigoProduto(JTextField txtCodigoProduto) {
         this.txtCodigoProduto = txtCodigoProduto;
     }
-    
+
     public JFormattedTextField getTxtPreco() {
         return txtPreco;
     }
@@ -61,7 +57,7 @@ public class telaProduto extends javax.swing.JFrame {
     public void setTxtPreco(JFormattedTextField txtPreco) {
         this.txtPreco = txtPreco;
     }
-    
+
     public JComboBox<String> getCbxTamanho_() {
         return cbxTamanho_;
     }
@@ -69,7 +65,7 @@ public class telaProduto extends javax.swing.JFrame {
     public void setCbxTamanho(JComboBox<String> cbxTamanho_) {
         this.cbxTamanho_ = cbxTamanho_;
     }
-    
+
     public JComboBox<String> getCbxCor() {
         return cbxCor;
     }
@@ -84,7 +80,7 @@ public class telaProduto extends javax.swing.JFrame {
 
     public void setTxtProduto(JTextField txtProduto) {
         this.txtProduto = txtProduto;
-    }   
+    }
 
     public JFormattedTextField getTxtQtd() {
         return txtQtd;
@@ -93,7 +89,7 @@ public class telaProduto extends javax.swing.JFrame {
     public void setTxtQtd(JFormattedTextField txtQtd) {
         this.txtQtd = txtQtd;
     }
-    
+
     public JComboBox<String> getCbxTipo() {
         return cbxTipo;
     }
@@ -101,23 +97,35 @@ public class telaProduto extends javax.swing.JFrame {
     public void setCbxTipo(JComboBox<String> cbxTipo) {
         this.cbxTipo = cbxTipo;
     }
-    
-    public  boolean validaCamposVazios(){
+
+    public boolean validaCamposVazios() {
         // Valida se os campos obrigatorios estao preenchidos
         String cv = null;
-        
-        if (txtPreco.getText().isEmpty()) cv += ", Preco";
-        if (cbxTamanho_.getSelectedItem() == "Selecionar") cv += ", Tamanho";
-        if (cbxCor.getSelectedItem() == "Selecionar") cv += ", Cor";
-        if (txtProduto.getText().isEmpty())cv += ", Produto";
-        if (txtQtd.getText().isEmpty())cv += ", Quantidade";
-        if (cbxTipo.getSelectedItem() == "Selecionar") cv += ", Tipo";
-        
+
+        if (txtPreco.getText().isEmpty()) {
+            cv += ", Preco";
+        }
+        if (cbxTamanho_.getSelectedItem() == "Selecionar") {
+            cv += ", Tamanho";
+        }
+        if (cbxCor.getSelectedItem() == "Selecionar") {
+            cv += ", Cor";
+        }
+        if (txtProduto.getText().isEmpty()) {
+            cv += ", Produto";
+        }
+        if (txtQtd.getText().isEmpty()) {
+            cv += ", Quantidade";
+        }
+        if (cbxTipo.getSelectedItem() == "Selecionar") {
+            cv += ", Tipo";
+        }
+
         if (cv != null) {
             cv = cv.substring(2, (cv.length()));
             JOptionPane.showMessageDialog(this, "Preencha os campos vazios.\n" + cv, "Aviso", JOptionPane.WARNING_MESSAGE);
             return true;
-        } else{
+        } else {
             return false;
         }
     }
@@ -211,7 +219,20 @@ public class telaProduto extends javax.swing.JFrame {
             new String [] {
                 "CÓDIGO", "PREÇO (R$) ", "TAMANHO", "COR", "PRODUTO", "QTD", "TIPO"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblTelaProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTelaProdutoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblTelaProduto);
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
@@ -248,6 +269,30 @@ public class telaProduto extends javax.swing.JFrame {
         lblPreco.setForeground(new java.awt.Color(255, 255, 255));
         lblPreco.setText("*PREÇO: (R$)");
 
+        txtCodigoProduto.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                txtCodigoProdutoInputMethodTextChanged(evt);
+            }
+        });
+        txtCodigoProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoProdutoActionPerformed(evt);
+            }
+        });
+        txtCodigoProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoProdutoKeyTyped(evt);
+            }
+        });
+
+        txtProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtProdutoActionPerformed(evt);
+            }
+        });
+
         jLabel8.setFont(new java.awt.Font("Algerian", 0, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("TIPO:");
@@ -259,8 +304,23 @@ public class telaProduto extends javax.swing.JFrame {
                 txtQtdActionPerformed(evt);
             }
         });
+        txtQtd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtQtdKeyTyped(evt);
+            }
+        });
 
         txtPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        txtPreco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrecoActionPerformed(evt);
+            }
+        });
+        txtPreco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecoKeyTyped(evt);
+            }
+        });
 
         btnAdiocionarItem.setBackground(new java.awt.Color(0, 0, 0));
         btnAdiocionarItem.setFont(new java.awt.Font("Algerian", 0, 24)); // NOI18N
@@ -381,6 +441,11 @@ public class telaProduto extends javax.swing.JFrame {
         btnRemoverItem.setForeground(new java.awt.Color(255, 255, 255));
         btnRemoverItem.setText("REMOVER ITEM");
         btnRemoverItem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+        btnRemoverItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverItemActionPerformed(evt);
+            }
+        });
 
         btnVoltar.setBackground(new java.awt.Color(0, 0, 0));
         btnVoltar.setFont(new java.awt.Font("Algerian", 0, 24)); // NOI18N
@@ -463,9 +528,43 @@ public class telaProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtQtdActionPerformed
 
+    private void txtQtdKeyReleased(java.awt.event.KeyEvent evt) {
+        // TODO add your handling code here:
+        if (!txtQtd.getText().equals("")) {
+            try {
+                Double.parseDouble(txtQtd.getText().replaceAll(",", "."));
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Este campo não aceita letras. Por favor digite um valor numerico.");
+            }
+        }
+    }
+
     private void btnAdiocionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdiocionarItemActionPerformed
         // TODO add your handling code here:
-        
+        if (txtCodigoProduto.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Este codigo do produto.");
+        }
+        if (txtPreco.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Este preço.");
+        }
+        if (cbxTamanho_.getSelectedItem() == null || cbxTamanho_.getSelectedItem() == "") {
+            JOptionPane.showMessageDialog(this, "tamanho.");
+        }
+        if (cbxCor.getSelectedItem() == null || cbxCor.getSelectedItem() == "") {
+            JOptionPane.showMessageDialog(this, "Cor.");
+        }
+        if (txtProduto.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "produto.");
+        }
+        if (txtQtd.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Qtd");
+        }
+        if (cbxTipo.getSelectedItem() == null || cbxTipo.getSelectedItem() == "") {
+            JOptionPane.showMessageDialog(this, "Tipo.");
+        }
+        DefaultTableModel model = (DefaultTableModel) tblTelaProduto.getModel();
+        model.addRow(new Object[]{txtCodigoProduto.getText(), txtPreco.getText(), cbxTamanho_.getSelectedItem(), cbxCor.getSelectedItem(), txtProduto.getText(), txtQtd.getText(), cbxTipo.getSelectedItem()});
+        limparDados();
     }//GEN-LAST:event_btnAdiocionarItemActionPerformed
 
     private void txtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaActionPerformed
@@ -474,16 +573,143 @@ public class telaProduto extends javax.swing.JFrame {
 
     private void btnAtualizarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarItemActionPerformed
         // TODO add your handling code here:
+
+        boolean achei = false;
+        for (int i = 0; i < tblTelaProduto.getRowCount(); ++i) {
+            if (tblTelaProduto.getValueAt(i, 0).equals(txtCodigoProduto.getText().trim())) {
+                tblTelaProduto.setValueAt(txtCodigoProduto.getText().trim(), i, 0);
+                tblTelaProduto.setValueAt(txtPreco.getText().trim(), i, 1);
+                tblTelaProduto.setValueAt(cbxTamanho_.getSelectedItem(), i, 2);
+                tblTelaProduto.setValueAt(cbxCor.getSelectedItem(), i, 3);
+                tblTelaProduto.setValueAt(txtProduto.getText().trim(), i, 4);
+                tblTelaProduto.setValueAt(txtQtd.getText(), i, 5);
+                tblTelaProduto.setValueAt(cbxTipo.getSelectedItem(), i, 6);
+                achei=true;
+                limparDados();
+                break;
+            }
+        }
+
+        if (!achei) {
+            JOptionPane.showMessageDialog(this, "valor não encontrado na tabela");
+        }else{
+            JOptionPane.showMessageDialog(this, "Valor atualizado com sucesso!!");
+        }
     }//GEN-LAST:event_btnAtualizarItemActionPerformed
 
     private void btnLimparDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparDadosActionPerformed
         // TODO add your handling code here:
-        
+        limparDados();
     }//GEN-LAST:event_btnLimparDadosActionPerformed
 
+    private void limparDados() {
+        txtCodigoProduto.setText("");
+        txtPreco.setText("");
+        cbxTamanho_.setSelectedIndex(0);
+        cbxCor.setSelectedIndex(0);
+        txtProduto.setText("");
+        txtQtd.setText("");
+        cbxTipo.setSelectedIndex(0);
+    }
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void txtCodigoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoProdutoActionPerformed
+
+    private void txtProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtProdutoActionPerformed
+
+    private void txtPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrecoActionPerformed
+
+    private void txtCodigoProdutoInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtCodigoProdutoInputMethodTextChanged
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_txtCodigoProdutoInputMethodTextChanged
+
+    private void txtCodigoProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoProdutoKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();  // if it's not a number, ignore the event
+        }
+    }//GEN-LAST:event_txtCodigoProdutoKeyTyped
+
+    private void txtPrecoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecoKeyTyped
+
+        char c = evt.getKeyChar();
+
+        if (((c < '0') || (c > '9') && (c != KeyEvent.VK_BACK_SPACE))) {
+            if (c != ',') {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_txtPrecoKeyTyped
+
+    private void txtQtdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQtdKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();  // if it's not a number, ignore the event
+        }
+    }//GEN-LAST:event_txtQtdKeyTyped
+
+    private void tblTelaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTelaProdutoMouseClicked
+        // TODO add your handling code here:
+        JTable target = (JTable) evt.getSource();
+        int row = target.getSelectedRow(); // select a row
+        txtCodigoProduto.setText(tblTelaProduto.getValueAt(row, 0).toString());
+        txtPreco.setText(tblTelaProduto.getValueAt(row, 1).toString());
+        cbxTamanho_.setSelectedItem(tblTelaProduto.getValueAt(row, 2).toString());
+        cbxCor.setSelectedItem(tblTelaProduto.getValueAt(row, 3).toString());
+        txtProduto.setText(tblTelaProduto.getValueAt(row, 4).toString());
+        txtQtd.setText(tblTelaProduto.getValueAt(row, 5).toString());
+        cbxTipo.setSelectedItem(tblTelaProduto.getValueAt(row, 6).toString());
+    }//GEN-LAST:event_tblTelaProdutoMouseClicked
+
+    private void btnRemoverItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverItemActionPerformed
+        // TODO add your handling code here:
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja remover este item?", "", JOptionPane.YES_NO_OPTION);
+
+        //verfica se a resposta é verdadeira
+        if (resposta == JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(this, tblTelaProduto.getSelectedRow());
+            if (tblTelaProduto.getSelectedRow() >= 0) {
+                DefaultTableModel model = (DefaultTableModel) tblTelaProduto.getModel();
+                model.removeRow(tblTelaProduto.getSelectedRow());
+            }
+        }
+    }//GEN-LAST:event_btnRemoverItemActionPerformed
+
+    private void txtPrecoKeyReleased(java.awt.event.KeyEvent evt) {
+        // Validação da entrada de preco
+        if (!txtPreco.getText().equals("")) {
+            try {
+                Double.parseDouble(txtPreco.getText().replaceAll(",", "."));
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Este campo não aceita letras. Por favor digite um valor numerico.");
+            }
+        }
+    }
+
+    private void txtProdutoKeyTyped(java.awt.event.KeyEvent evt) {
+        // TODO add your handling code here:
+
+        //PERMITE DIGITAR APENAS LETRAS
+        char c = evt.getKeyChar();
+
+        //Aqui verificamos se o que foi digitado é um número, um backspace ou um delete. Se for, consumimos o evento, ou seja, o jTextField não receberá o valor digitado
+        if (((c == KeyEvent.VK_BACK_SPACE) || c == KeyEvent.VK_DELETE)) {
+            evt.consume();
+
+        }
+    }
 
     /**
      * @param args the command line arguments
