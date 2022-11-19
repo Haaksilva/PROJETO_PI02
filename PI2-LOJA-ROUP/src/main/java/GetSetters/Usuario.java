@@ -7,15 +7,15 @@ package GetSetters;
  */
 public class Usuario {
     private int id; 
-    private String tipo;
+    private String Cargo;
     private String nome; 
     private String usuario;
     private String senha;
     
-    public Usuario(int id, String nome, String tipo, String usuario, String senha) {
+    public Usuario(int id, String nome, String Cargo, String usuario, String senha) {
         this.id = id;
         this.nome = nome;
-        this.tipo = tipo;
+        this.Cargo = Cargo;
         this.usuario = usuario;
         this.senha = senha;
     }
@@ -30,12 +30,12 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getCargo() {
+        return Cargo;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setCargo(String Cargo) {
+        this.Cargo = Cargo;
     }
 
     public String getNome() {

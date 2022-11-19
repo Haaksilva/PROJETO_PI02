@@ -5,15 +5,16 @@
  */
 package Telas;
 
-
-
+import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,20 +22,97 @@ import javax.swing.JTextField;
  */
 public class telaUsuario extends javax.swing.JFrame {
 
-   
-
     /**
      * Creates new form telaLivros
      */
     public telaUsuario() {
         initComponents();
+
         // Inicializando com o JFrame centralizado
         this.setLocationRelativeTo(null);
-       
-        btnAtuallizar.setEnabled(false);
-        btnRemover.setEnabled(false);
-        
-       
+
+        //btnAtuallizar.setEnabled(false);
+        //btnRemover.setEnabled(false);
+    }
+
+    public JTable getTblUsuario() {
+        return tblUsuario;
+    }
+
+    public void setTblUsuario(JTable tblUsuario) {
+        this.tblUsuario = tblUsuario;
+    }
+
+    public JTextField getTxtBusca() {
+        return txtBusca;
+    }
+
+    public void setTxtBusca(JTextField txtBusca) {
+        this.txtBusca = txtBusca;
+    }
+
+    public JTextField getTxtCodigoUsuario() {
+        return txtCodigoUsuario;
+    }
+
+    public void setTxtCodigoUsuario(JTextField TxtCodigoUsuario) {
+        this.txtCodigoUsuario = txtCodigoUsuario;
+    }
+
+    public JTextField getTxtNomeUsuario() {
+        return txtNomeUsuario;
+    }
+
+    public void setTxtNomeUsuario(JTextField TxtNomeUsuario) {
+        this.txtNomeUsuario = txtNomeUsuario;
+    }
+
+    public JComboBox<String> getCbxCargo() {
+        return cbxCargo;
+    }
+
+    public void setCbxCargo(JComboBox<String> cbxCargo) {
+        this.cbxCargo = cbxCargo;
+    }
+
+    public JTextField getTxtUsuario() {
+        return txtUsuario;
+    }
+
+    public void setTxtUsuario(JTextField txtUsuario) {
+        this.txtNomeUsuario = txtUsuario;
+    }
+
+    /*
+    public JTextField getTxtSenha() {
+        return psdSenha;
+    }
+
+    public void setPsdSenha(JPasswordField txtSenha) {
+        this.psdSenha = psdSenha;
+    }
+     */
+    public boolean validaCamposVazios() {
+        // Valida se os campos obrigatorios estao preenchidos
+        String cv = null;
+
+        if (txtNomeUsuario.getText().isEmpty()) {
+            cv += ", ";
+        }
+        if (cbxCargo.getSelectedItem() == "Selecionar") {
+            cv += ", Cargo Usuário";
+        }
+
+        if (txtUsuario.getText().isEmpty()) {
+            cv += ", Usuário";
+        }
+        if (cv != null) {
+            cv = cv.substring(2, (cv.length()));
+            JOptionPane.showMessageDialog(this, "Preencha os campos vazios.\n" + cv, "Aviso", JOptionPane.WARNING_MESSAGE);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -54,15 +132,15 @@ public class telaUsuario extends javax.swing.JFrame {
         btnVoltar = new javax.swing.JButton();
         panelProduto = new javax.swing.JPanel();
         lblCodigo = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
-        lblTipo = new javax.swing.JLabel();
-        cbxTipo = new javax.swing.JComboBox<>();
+        txtCodigoUsuario = new javax.swing.JTextField();
+        lblCargo = new javax.swing.JLabel();
+        cbxCargo = new javax.swing.JComboBox<>();
         lblNome = new javax.swing.JLabel();
-        txtNome = new javax.swing.JTextField();
+        txtNomeUsuario = new javax.swing.JTextField();
         lblNome1 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         lblNome2 = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JPasswordField();
+        psdSenha = new javax.swing.JPasswordField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblUsuario = new javax.swing.JTable();
         panelBusca = new javax.swing.JPanel();
@@ -137,7 +215,7 @@ public class telaUsuario extends javax.swing.JFrame {
         );
 
         btnVoltar.setBackground(new java.awt.Color(0, 0, 0));
-        btnVoltar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        btnVoltar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnVoltar.setForeground(new java.awt.Color(255, 255, 255));
         btnVoltar.setText("VOLTAR");
         btnVoltar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 0, 0), 1, true));
@@ -148,40 +226,40 @@ public class telaUsuario extends javax.swing.JFrame {
         });
 
         panelProduto.setBackground(new java.awt.Color(0, 0, 0));
-        panelProduto.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 3, true), "Produto", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 3, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        panelProduto.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 3, true), "Usuário", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 3, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        panelProduto.setToolTipText("");
 
         lblCodigo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblCodigo.setForeground(new java.awt.Color(255, 255, 255));
         lblCodigo.setText("Cód:");
 
-        txtCodigo.setEditable(false);
-        txtCodigo.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        txtCodigo.setForeground(new java.awt.Color(35, 70, 72));
-        txtCodigo.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        txtCodigoUsuario.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        txtCodigoUsuario.setForeground(new java.awt.Color(35, 70, 72));
+        txtCodigoUsuario.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txtCodigoPropertyChange(evt);
+                txtCodigoUsuarioPropertyChange(evt);
             }
         });
-        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtCodigoUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCodigoKeyReleased(evt);
+                txtCodigoUsuarioKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCodigoKeyTyped(evt);
+                txtCodigoUsuarioKeyTyped(evt);
             }
         });
 
-        lblTipo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        lblTipo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTipo.setText("*Tipo:");
+        lblCargo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblCargo.setForeground(new java.awt.Color(255, 255, 255));
+        lblCargo.setText("*Cargo:");
 
-        cbxTipo.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        cbxTipo.setForeground(new java.awt.Color(35, 70, 72));
-        cbxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "Administrador", "Comum" }));
-        cbxTipo.setToolTipText("");
-        cbxTipo.addActionListener(new java.awt.event.ActionListener() {
+        cbxCargo.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        cbxCargo.setForeground(new java.awt.Color(35, 70, 72));
+        cbxCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "Administrador", "Gerente", "Vendedor" }));
+        cbxCargo.setToolTipText("");
+        cbxCargo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxTipoActionPerformed(evt);
+                cbxCargoActionPerformed(evt);
             }
         });
 
@@ -189,11 +267,11 @@ public class telaUsuario extends javax.swing.JFrame {
         lblNome.setForeground(new java.awt.Color(255, 255, 255));
         lblNome.setText("*Nome:");
 
-        txtNome.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        txtNome.setForeground(new java.awt.Color(35, 70, 72));
-        txtNome.addActionListener(new java.awt.event.ActionListener() {
+        txtNomeUsuario.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        txtNomeUsuario.setForeground(new java.awt.Color(35, 70, 72));
+        txtNomeUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeActionPerformed(evt);
+                txtNomeUsuarioActionPerformed(evt);
             }
         });
 
@@ -213,10 +291,10 @@ public class telaUsuario extends javax.swing.JFrame {
         lblNome2.setForeground(new java.awt.Color(255, 255, 255));
         lblNome2.setText("*Senha:");
 
-        txtSenha.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        txtSenha.addActionListener(new java.awt.event.ActionListener() {
+        psdSenha.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        psdSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSenhaActionPerformed(evt);
+                psdSenhaActionPerformed(evt);
             }
         });
 
@@ -228,10 +306,10 @@ public class telaUsuario extends javax.swing.JFrame {
                 .addGroup(panelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelProdutoLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblTipo)
+                        .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbxCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
                         .addComponent(lblNome1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -239,16 +317,16 @@ public class telaUsuario extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(lblCodigo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCodigoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelProdutoLayout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addComponent(lblNome2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(psdSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelProdutoLayout.setVerticalGroup(
@@ -257,23 +335,23 @@ public class telaUsuario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCodigo)
-                    .addComponent(txtCodigo)
+                    .addComponent(txtCodigoUsuario)
                     .addComponent(lblNome)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelProdutoLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblTipo)
-                            .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNome1))
-                        .addGap(17, 17, 17))
-                    .addGroup(panelProdutoLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblCargo)
+                        .addComponent(lblNome1))
+                    .addGroup(panelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(panelProdutoLayout.createSequentialGroup()
+                            .addGap(1, 1, 1)
+                            .addComponent(cbxCargo))
+                        .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10)
                 .addGroup(panelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome2)
-                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(psdSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
 
@@ -282,7 +360,7 @@ public class telaUsuario extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Tipo", "Nome", "Usuário"
+                "Código", "Nome", "Cargo", "Usuário"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -338,7 +416,7 @@ public class telaUsuario extends javax.swing.JFrame {
         );
 
         btnRegistrar.setBackground(new java.awt.Color(0, 0, 0));
-        btnRegistrar.setFont(new java.awt.Font("Lucida Grande", 1, 20)); // NOI18N
+        btnRegistrar.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("Incluir");
         btnRegistrar.setActionCommand("Registrar Item");
@@ -350,7 +428,7 @@ public class telaUsuario extends javax.swing.JFrame {
         });
 
         btnAtuallizar.setBackground(new java.awt.Color(0, 0, 0));
-        btnAtuallizar.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        btnAtuallizar.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         btnAtuallizar.setForeground(new java.awt.Color(255, 255, 255));
         btnAtuallizar.setText("Atualizar ");
         btnAtuallizar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
@@ -361,7 +439,7 @@ public class telaUsuario extends javax.swing.JFrame {
         });
 
         btnRemover.setBackground(new java.awt.Color(0, 0, 0));
-        btnRemover.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        btnRemover.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         btnRemover.setForeground(new java.awt.Color(255, 255, 255));
         btnRemover.setText("Remover ");
         btnRemover.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
@@ -372,7 +450,7 @@ public class telaUsuario extends javax.swing.JFrame {
         });
 
         btnLimparCampos.setBackground(new java.awt.Color(0, 0, 0));
-        btnLimparCampos.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        btnLimparCampos.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         btnLimparCampos.setForeground(new java.awt.Color(255, 255, 255));
         btnLimparCampos.setText("Limpar ");
         btnLimparCampos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
@@ -441,7 +519,7 @@ public class telaUsuario extends javax.swing.JFrame {
             .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(813, 670));
+        setSize(new java.awt.Dimension(831, 713));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -456,26 +534,42 @@ public class telaUsuario extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // Se nao tiver campos vazios
-        if (!validaCamposVazios()){
-            
-          
-            
+        if (txtNomeUsuario.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Digite o nome do usuário.");
         }
+        if (cbxCargo.getSelectedItem() == null || cbxCargo.getSelectedItem() == "") {
+            JOptionPane.showMessageDialog(this, "Escolha o tamanho.");
+        }
+        if (txtUsuario.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Digite o usuário.");
+        }
+        //if (psdSenha.getPassword().equals(""))
+
+        DefaultTableModel model = (DefaultTableModel) tblUsuario.getModel();
+        model.addRow(new Object[]{txtCodigoUsuario.getText(), txtNomeUsuario.getText(), cbxCargo.getSelectedItem(), txtUsuario.getText()});
+        limparDados();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
         // Limpando os campos
-        
-
+        limparDados();
     }//GEN-LAST:event_btnLimparCamposActionPerformed
+    private void limparDados() {
+        txtCodigoUsuario.setText("");
+        txtNomeUsuario.setText("");
+        cbxCargo.setSelectedIndex(0);
+        txtUsuario.setText("");
+        // psdSenha.setText("");
+    }
 
-    private void cbxTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxTipoActionPerformed
 
-    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+    private void cbxCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCargoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeActionPerformed
+    }//GEN-LAST:event_cbxCargoActionPerformed
+
+    private void txtNomeUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeUsuarioActionPerformed
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
         // TODO add your handling code here:
@@ -483,59 +577,82 @@ public class telaUsuario extends javax.swing.JFrame {
 
     private void btnAtuallizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtuallizarActionPerformed
         // TODO add your handling code here:
-        
-       
+        boolean achei = false;
+        for (int i = 0; i < tblUsuario.getRowCount(); ++i) {
+            if (tblUsuario.getValueAt(i, 0).equals(txtCodigoUsuario.getText().trim())) {
+                tblUsuario.setValueAt(txtCodigoUsuario.getText().trim(), i, 0);
+                tblUsuario.setValueAt(txtNomeUsuario.getText().trim(), i, 1);
+                tblUsuario.setValueAt(cbxCargo.getSelectedItem(), i, 2);
+                tblUsuario.setValueAt(txtUsuario.getText().trim(), i, 3);
+                achei = true;
+                limparDados();
+                break;
+            }
+        }
+        if (!achei) {
+            JOptionPane.showMessageDialog(this, "valor não encontrado na tabela");
+        } else {
+            JOptionPane.showMessageDialog(this, "Valor atualizado com sucesso!!");
+        }
     }//GEN-LAST:event_btnAtuallizarActionPerformed
 
     private void tblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuarioMouseClicked
         // TODO add your handling code here:
-        
-               int linha = tblUsuario.getSelectedRow(); //retorna um inteiro
-       
-       
-       int codigo =  (int) tblUsuario.getValueAt(linha,0); 
-       Object tipo = (String) tblUsuario.getValueAt(linha,1); 
-       Object nome = (String) tblUsuario.getValueAt(linha,2); 
-       Object usuario = (String) tblUsuario.getValueAt(linha,3); 
-       
-       
-       txtCodigo.setText(String.valueOf(codigo));
-       txtNome.setText((String) nome);
-       txtUsuario.setText((String) usuario);
-       cbxTipo.setSelectedItem(tipo);
+        JTable target = (JTable) evt.getSource();
+        int row = target.getSelectedRow(); // select a row
+        txtCodigoUsuario.setText(tblUsuario.getValueAt(row, 0).toString());
+        txtNomeUsuario.setText(tblUsuario.getValueAt(row, 1).toString());
+        cbxCargo.setSelectedItem(tblUsuario.getValueAt(row, 2).toString());
+        txtUsuario.setText(tblUsuario.getValueAt(row, 3).toString());
     }//GEN-LAST:event_tblUsuarioMouseClicked
 
-    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+    private void txtCodigoUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoUsuarioKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();  // if it's not a number, ignore the event
+        }
+
+    }//GEN-LAST:event_txtCodigoUsuarioKeyTyped
+
+    private void txtCodigoUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoUsuarioKeyReleased
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_txtCodigoKeyTyped
+    }//GEN-LAST:event_txtCodigoUsuarioKeyReleased
 
-    private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
+    private void txtCodigoUsuarioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtCodigoUsuarioPropertyChange
         // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoUsuarioPropertyChange
 
-    }//GEN-LAST:event_txtCodigoKeyReleased
+    private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {
+        char c = evt.getKeyChar();
 
-    private void txtCodigoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtCodigoPropertyChange
-        // TODO add your handling code here:
-                
-                
-      
-    }//GEN-LAST:event_txtCodigoPropertyChange
+        //Aqui verificamos se o que foi digitado é um número, um backspace ou um delete. Se for, consumimos o evento, ou seja, o jTextField não receberá o valor digitado
+        if (((c == KeyEvent.VK_BACK_SPACE) || c == KeyEvent.VK_DELETE)) {
+            evt.consume();
+        }
+    }
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         // TODO add your handling code here:
-        
-              
-        
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja remover este item?", "", JOptionPane.YES_NO_OPTION);
+
+        //verfica se a resposta é verdadeira
+        if (resposta == JOptionPane.YES_OPTION) {
+            if (tblUsuario.getSelectedRow() >= 0) {
+                DefaultTableModel model = (DefaultTableModel) tblUsuario.getModel();
+                model.removeRow(tblUsuario.getSelectedRow());
+            }
+        }
     }//GEN-LAST:event_btnRemoverActionPerformed
 
-    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
+    private void psdSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_psdSenhaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSenhaActionPerformed
+    }//GEN-LAST:event_psdSenhaActionPerformed
 
     private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
         // Defnindo texto para efetuar busca
-       
+
     }//GEN-LAST:event_txtBuscaKeyReleased
 
     /**
@@ -579,33 +696,7 @@ public class telaUsuario extends javax.swing.JFrame {
             }
         });
     }
-    
-    public  boolean validaCamposVazios(){
-        // Valida se os campos obrigatorios estao preenchidos
-        String cv = null;
-        
-        if (txtNome.getText().isEmpty())cv += ", Nome";
-        if (cbxTipo.getSelectedItem() == "Selecionar") cv += ", Tipo";
-        if (txtUsuario.getText().isEmpty())cv += ", Usuario";
-        if (txtSenha.getText().isEmpty())cv += ", Senha";
-        
-        if (cv != null) {
-            cv = cv.substring(2, (cv.length()));
-            JOptionPane.showMessageDialog(this, "Por favor, preencha os campos vazios.\n" + cv);
-            return true;
-        } else{
-            return false;
-        }
-    }
-    
-    public static boolean isNumeric (String n) {
-        try {
-            Double.parseDouble (n); 
-            return true;
-        } catch (NumberFormatException ex) {
-            return false;
-        }
-    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtuallizar;
@@ -613,31 +704,27 @@ public class telaUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JComboBox<String> cbxTipo;
+    private javax.swing.JComboBox<String> cbxCargo;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblBusca;
+    private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNome1;
     private javax.swing.JLabel lblNome2;
-    private javax.swing.JLabel lblTipo;
     private javax.swing.JPanel panelBusca;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JPanel panelProduto;
     private javax.swing.JPanel panelTitulo;
+    private javax.swing.JPasswordField psdSenha;
     private javax.swing.JTable tblUsuario;
     private javax.swing.JTextField txtBusca;
-    private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtNome;
-    private javax.swing.JPasswordField txtSenha;
+    private javax.swing.JTextField txtCodigoUsuario;
+    private javax.swing.JTextField txtNomeUsuario;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
-
-    
-
-
 
 }
