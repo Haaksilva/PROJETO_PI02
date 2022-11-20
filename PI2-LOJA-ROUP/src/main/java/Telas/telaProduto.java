@@ -4,6 +4,7 @@
  */
 package Telas;
 
+import java.awt.HeadlessException;
 import java.sql.*;
 import java.awt.event.KeyEvent;
 import javax.swing.JComboBox;
@@ -544,30 +545,41 @@ public class telaProduto extends javax.swing.JFrame {
     }
 
     private void btnAdiocionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdiocionarItemActionPerformed
-        // TODO add your handling code here:
 
-        if (txtPreco.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Digite o preço.");
-        }
-        if (cbxTamanho_.getSelectedItem() == null || cbxTamanho_.getSelectedItem() == "") {
-            JOptionPane.showMessageDialog(this, "Escolha o tamanho.");
-        }
-        if (cbxCor.getSelectedItem() == null || cbxCor.getSelectedItem() == "") {
-            JOptionPane.showMessageDialog(this, "Escolha a cor.");
-        }
-        if (txtProduto.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Digite o nome do produto.");
-        }
-        if (txtQtd.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Digite a quantidade.");
-        }
-        if (cbxTipo.getSelectedItem() == null || cbxTipo.getSelectedItem() == "") {
-            JOptionPane.showMessageDialog(this, "Digite o tipo.");
-        }
+        if (validarFormulario()) return;
         DefaultTableModel model = (DefaultTableModel) tblTelaProduto.getModel();
         model.addRow(new Object[]{txtCodigoProduto.getText(), txtPreco.getText(), cbxTamanho_.getSelectedItem(), cbxCor.getSelectedItem(), txtProduto.getText(), txtQtd.getText(), cbxTipo.getSelectedItem()});
         limparDados();
     }//GEN-LAST:event_btnAdiocionarItemActionPerformed
+
+    private boolean validarFormulario() throws HeadlessException {
+        // TODO add your handling code here:
+        if (txtPreco.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Digite o preço.");
+            return true;
+        }
+        if (cbxTamanho_.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Escolha o tamanho.");
+            return true;
+        }
+        if (cbxCor.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Escolha a cor.");
+            return true;
+        }
+        if (txtProduto.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Digite o nome do produto.");
+            return true;
+        }
+        if (txtQtd.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Digite a quantidade.");
+            return true;
+        }
+        if (cbxTipo.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Digite o tipo.");
+            return true;
+        }
+        return false;
+    }
 
     private void txtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaActionPerformed
         // TODO add your handling code here:
@@ -576,6 +588,7 @@ public class telaProduto extends javax.swing.JFrame {
     private void btnAtualizarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarItemActionPerformed
         // TODO add your handling code here:
 
+        if (validarFormulario()) return;
         boolean achei = false;
         for (int i = 0; i < tblTelaProduto.getRowCount(); ++i) {
             if (tblTelaProduto.getValueAt(i, 0).equals(txtCodigoProduto.getText().trim())) {

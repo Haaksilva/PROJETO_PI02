@@ -5,6 +5,7 @@
  */
 package Telas;
 
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -235,6 +236,11 @@ public class telaUsuario extends javax.swing.JFrame {
 
         txtCodigoUsuario.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         txtCodigoUsuario.setForeground(new java.awt.Color(35, 70, 72));
+        txtCodigoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoUsuarioActionPerformed(evt);
+            }
+        });
         txtCodigoUsuario.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 txtCodigoUsuarioPropertyChange(evt);
@@ -533,22 +539,36 @@ public class telaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        // Se nao tiver campos vazios
-        if (txtNomeUsuario.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Digite o nome do usuário.");
+        if (validarFormulario()) {
+            return;
         }
-        if (cbxCargo.getSelectedItem() == null || cbxCargo.getSelectedItem() == "") {
-            JOptionPane.showMessageDialog(this, "Escolha o tamanho.");
-        }
-        if (txtUsuario.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Digite o usuário.");
-        }
-        //if (psdSenha.getPassword().equals(""))
 
         DefaultTableModel model = (DefaultTableModel) tblUsuario.getModel();
         model.addRow(new Object[]{txtCodigoUsuario.getText(), txtNomeUsuario.getText(), cbxCargo.getSelectedItem(), txtUsuario.getText()});
         limparDados();
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private boolean validarFormulario() throws HeadlessException {
+        // Se nao tiver campos vazios
+        if (txtNomeUsuario.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Digite o nome do usuário.");
+            return true;
+        }
+        if (cbxCargo.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Escolha o cargo.");
+            return true;
+        }
+        if (txtUsuario.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Digite o usuário.");
+            return true;
+        }
+        if (psdSenha.getPassword().equals("")) {
+            JOptionPane.showMessageDialog(this, "Digite a senha.");
+            return true;
+        }
+        return false;
+        
+    }
 
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
         // Limpando os campos
@@ -559,7 +579,7 @@ public class telaUsuario extends javax.swing.JFrame {
         txtNomeUsuario.setText("");
         cbxCargo.setSelectedIndex(0);
         txtUsuario.setText("");
-        // psdSenha.setText("");
+        psdSenha.setText("");
     }
 
 
@@ -643,6 +663,7 @@ public class telaUsuario extends javax.swing.JFrame {
                 DefaultTableModel model = (DefaultTableModel) tblUsuario.getModel();
                 model.removeRow(tblUsuario.getSelectedRow());
             }
+            limparDados();
         }
     }//GEN-LAST:event_btnRemoverActionPerformed
 
@@ -654,6 +675,10 @@ public class telaUsuario extends javax.swing.JFrame {
         // Defnindo texto para efetuar busca
 
     }//GEN-LAST:event_txtBuscaKeyReleased
+
+    private void txtCodigoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoUsuarioActionPerformed
 
     /**
      * @param args the command line arguments

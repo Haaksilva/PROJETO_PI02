@@ -184,6 +184,11 @@ public class telaCliente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tfCPF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfCPFActionPerformed(evt);
+            }
+        });
 
         tfDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         tfDataNascimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -550,6 +555,10 @@ public class telaCliente extends javax.swing.JFrame {
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void tfCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCPFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfCPFActionPerformed
 
     /**
      * @param args the command line arguments

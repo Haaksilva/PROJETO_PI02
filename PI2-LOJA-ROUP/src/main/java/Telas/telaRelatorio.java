@@ -4,7 +4,13 @@
  */
 package Telas;
 
-
+import java.awt.event.KeyEvent;
+import java.text.ParseException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -74,11 +80,34 @@ public class telaRelatorio extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("DATA FINAL");
 
-        txtDataInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        txtDataInicial.setText("     /     /");
+        try {
+            txtDataInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtDataInicial.setValue("");
+        txtDataInicial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataInicialActionPerformed(evt);
+            }
+        });
 
-        txtDataFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        txtDataFinal.setText("     /     /");
+        try{
+            txtDataFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtDataFinal.setText("");
+        txtDataFinal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataFinalActionPerformed(evt);
+            }
+        });
+        txtDataFinal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDataFinalKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -211,6 +240,7 @@ public class telaRelatorio extends javax.swing.JFrame {
         btnLimpar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
 
         btnVoltar.setBackground(new java.awt.Color(0, 0, 0));
+        btnVoltar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnVoltar.setForeground(new java.awt.Color(255, 255, 255));
         btnVoltar.setText("Voltar");
         btnVoltar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
@@ -261,9 +291,9 @@ public class telaRelatorio extends javax.swing.JFrame {
                         .addComponent(btnDetalhado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addGap(13, 13, 13))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -286,6 +316,36 @@ public class telaRelatorio extends javax.swing.JFrame {
     private void btnDetalhadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalhadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDetalhadoActionPerformed
+
+    private void txtDataInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataInicialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataInicialActionPerformed
+
+    private void txtDataFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataFinalActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtDataFinalActionPerformed
+
+    private void txtDataFinalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataFinalKeyPressed
+        // TODO add your handling code here:
+        try {
+
+            if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+                Date dtInicial = sdf.parse(txtDataInicial.getText());
+                Date dtFinal = sdf.parse(txtDataFinal.getText());
+
+                if (dtFinal.compareTo(dtInicial) < 0) {                                
+                    JOptionPane.showMessageDialog(this, "Data Inicial maior que data Final");
+                    txtDataInicial.setText("");
+                    txtDataFinal.setText("");
+                    txtDataInicial.requestFocus();
+                }
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_txtDataFinalKeyPressed
 
     /**
      * @param args the command line arguments
